@@ -1,0 +1,144 @@
+@font-face {
+  font-family: 'shadow';
+  src: url('/assets/fonts/collins.otf') format('open-type');
+  font-weight: normal;
+  font-style: normal;
+}
+
+
+  .main-layout-ani{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height:120px;
+    font-size: 60px;
+    font-weight: 700; 
+    justify-content: center;
+ 
+    padding-left: 0;
+  color: rgb(60, 58, 58);
+
+
+ 
+  width: 100%;
+  margin: 0 auto;
+  padding: zero;
+
+  font-family: shadow;
+  padding-bottom: 1rem;
+
+  
+    
+}
+
+
+.layout-two-ani {
+  
+    display: flex;
+    flex-direction: column;
+
+    height: auto;
+    overflow: hidden;
+    margin: 0 auto;
+   width: 100%;
+   height: 100%;
+   line-height: 10px;
+   font-family: shadow;
+   
+  }
+  
+  .image-container-two-ani {
+    display: flex;
+    flex-direction: column;
+    transition: transform 1s ease-in-out; /* Smooth transition for the sliding effect */
+    font-size: 90px;
+    width: 95%;
+    height: 100%;
+   
+    letter-spacing: -0.07em;
+    margin: 0 auto;
+    align-items: flex-end;
+    font-family: shadow;
+    margin-inline-start: 10px;
+    margin-block-start: 10px;
+    color: #fff;
+
+
+   
+
+  }
+  
+  .image-container-two-ani img {
+    display: none;
+    width: 100%; /* Each image takes up the full width of the container */
+    height: 100%; /* Maintain aspect ratio */
+    font-size: 1rem;
+    line-height: 10px;
+    margin: 0 auto;
+    font-family: shadow;
+   
+      
+  }
+  
+  /* CSS classes to handle the right-to-left sliding effect */
+  .ani-image-0 {
+    transform: translateY(-30px); /* First image visible */
+  }
+  
+  .ani-image-1 {
+    transform: translateY(-225px); /* Second image slides in from the right */
+  }
+  
+  .ani-image-2 {
+    transform: translateY(-410px); /* Third image slides in from the right */
+  }
+
+  .ani-image-3 {
+    transform: translateY(-600px); /* Third image slides in from the right */
+  }
+
+  .ani-image-4{
+    transform: translateY(-790px); /* Third image slides in from the right */
+  }
+
+  .ani-image-5{
+    transform: translateY(-980px); /* Third image slides in from the right */
+  }
+
+  .ani-image-6{
+    transform: translateY(-980px); /* Third image slides in from the right */
+  }
+
+.tagline-rotator {
+  position: relative;
+  width: 100%;
+  min-height: clamp(4rem, 10vw, 6rem);
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 0.75rem clamp(1rem, 3vw, 2rem);
+  font-family: shadow, sans-serif;
+  font-size: clamp(2.25rem, 7vw, 5.5rem);
+  font-weight: 700;
+  letter-spacing: -0.07em;
+  line-height: 1;
+}
+
+.tagline-rotator__viewport {
+  position: relative;
+  height: 1em;
+  width: 100%;
+  overflow: hidden;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.tagline-rotator__word {
+  position: absolute;
+  right: 0;
+  top: 0;
+  margin: 0;
+  white-space: nowrap;
+  will-change: transform, opacity, filter;
+}
+

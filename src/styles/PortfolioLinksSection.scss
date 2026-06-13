@@ -1,0 +1,126 @@
+.portfolio-links {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  padding: 6rem 1.5rem 4rem;
+  scroll-margin-top: var(--nav-height, 4.25rem);
+}
+
+.portfolio-links__bg-wrap {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.portfolio-links__particles {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: auto;
+}
+
+.portfolio-links__overlay {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(180deg, rgba(0, 0, 0, 0.45) 0%, rgba(0, 0, 0, 0.65) 100%),
+    radial-gradient(circle at 20% 20%, rgba(255, 255, 255, 0.06), transparent 45%);
+}
+
+.portfolio-links__content {
+  position: relative;
+  z-index: 1;
+  width: min(1100px, 100%);
+}
+
+.portfolio-links__header {
+  margin-bottom: 2.5rem;
+}
+
+.portfolio-links__eyebrow {
+  margin: 0 0 0.75rem;
+  font-size: 0.85rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  opacity: 0.85;
+}
+
+.portfolio-links__title {
+  margin: 0;
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  line-height: 1.05;
+  font-weight: 500;
+}
+
+.portfolio-links__grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.portfolio-links__card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  padding: 1.35rem 1.25rem;
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(10px);
+  text-decoration: none;
+  transition:
+    background 0.35s ease,
+    border-color 0.35s ease,
+    box-shadow 0.35s ease;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.14);
+    border-color: rgba(255, 255, 255, 0.35);
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.25);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .portfolio-links__card {
+    transition: none;
+  }
+}
+
+.portfolio-links__index {
+  font-size: 0.75rem;
+  letter-spacing: 0.14em;
+  opacity: 0.65;
+}
+
+.portfolio-links__label {
+  font-size: clamp(1.15rem, 2.2vw, 1.65rem);
+  line-height: 1.15;
+  font-weight: 600;
+}
+
+.portfolio-links__tagline {
+  font-size: 0.92rem;
+  line-height: 1.4;
+  opacity: 0.82;
+}
+
+@media screen and (max-width: 768px) {
+  .portfolio-links {
+    min-height: auto;
+    padding-top: 5rem;
+  }
+
+  .portfolio-links__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .portfolio-links__card {
+    padding: 1.1rem 1rem;
+  }
+}

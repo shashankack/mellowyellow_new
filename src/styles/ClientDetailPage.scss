@@ -1,0 +1,387 @@
+.client-detail {
+  width: 100%;
+}
+
+.client-detail__top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding-top: calc(var(--nav-height, 4.25rem) + 1.5rem);
+  padding-bottom: 1.25rem;
+}
+
+.client-detail__position {
+  font-size: 0.78rem;
+  letter-spacing: 0.18em;
+  color: var(--page-accent);
+}
+
+.client-detail__position-sep {
+  margin: 0 0.35rem;
+  opacity: 0.45;
+}
+
+.client-detail__hero {
+  display: grid;
+  grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
+  gap: clamp(1.5rem, 4vw, 3rem);
+  align-items: end;
+  padding-bottom: clamp(2.5rem, 6vw, 4rem);
+  border-bottom: 1px solid color-mix(in srgb, var(--page-text) 10%, transparent);
+
+  @media (max-width: 900px) {
+    grid-template-columns: 1fr;
+    align-items: start;
+  }
+}
+
+.client-detail__intro {
+  max-width: 38rem;
+}
+
+.client-detail__title {
+  margin: 0 0 1.25rem;
+  font-size: clamp(2.25rem, 5.5vw, 4rem);
+  line-height: 0.95;
+  font-weight: 500;
+  letter-spacing: -0.03em;
+}
+
+.client-detail__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin: 0 0 1.25rem;
+  padding: 0;
+  list-style: none;
+
+  li {
+    padding: 0.45rem 0.75rem;
+    border-radius: 999px;
+    border: 1px solid color-mix(in srgb, var(--page-text) 14%, transparent);
+    background: color-mix(in srgb, var(--page-text) 4%, transparent);
+    font-size: 0.68rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+}
+
+.client-detail__summary {
+  margin: 0 0 1.5rem;
+  max-width: 52ch;
+  font-size: clamp(1rem, 2vw, 1.125rem);
+  line-height: 1.75;
+  opacity: 0.82;
+}
+
+.client-detail__stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem 1.25rem;
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  opacity: 0.45;
+}
+
+.client-detail__cover {
+  position: relative;
+  display: block;
+  width: 100%;
+  padding: 0;
+  border: none;
+  border-radius: 18px;
+  overflow: hidden;
+  cursor: pointer;
+  background: color-mix(in srgb, var(--page-text) 6%, transparent);
+  transition: transform 0.35s ease;
+
+  &:hover,
+  &:focus-visible {
+    transform: translateY(-4px);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--page-accent);
+    outline-offset: 4px;
+  }
+}
+
+.client-detail__cover-shell {
+  width: 100%;
+  aspect-ratio: 4 / 5;
+}
+
+.client-detail__cover-img,
+.client-detail__cover-shell .media-shell__media {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.client-detail__cover-hint {
+  position: absolute;
+  right: 1rem;
+  bottom: 1rem;
+  padding: 0.45rem 0.75rem;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--page-bg) 82%, transparent);
+  backdrop-filter: blur(8px);
+  font-size: 0.68rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  opacity: 0;
+  transform: translateY(6px);
+  transition:
+    opacity 0.25s ease,
+    transform 0.25s ease;
+}
+
+.client-detail__cover:hover .client-detail__cover-hint,
+.client-detail__cover:focus-visible .client-detail__cover-hint {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.client-detail__work {
+  padding: clamp(2.5rem, 6vw, 4rem) 0;
+}
+
+.client-detail__work-header {
+  margin-bottom: clamp(1.25rem, 3vw, 2rem);
+
+  h2 {
+    margin: 0 0 0.5rem;
+    font-size: clamp(1.5rem, 3vw, 2rem);
+    font-weight: 500;
+    letter-spacing: -0.02em;
+  }
+}
+
+.client-detail__work-note {
+  margin: 0;
+  font-size: 0.9rem;
+  opacity: 0.55;
+}
+
+.client-detail__gallery-masonry {
+  width: 100%;
+  padding: 0 clamp(0.35rem, 1vw, 0.65rem);
+  box-sizing: border-box;
+
+  .list {
+    width: 100%;
+  }
+
+  .item-wrapper {
+    padding: 0.25rem;
+  }
+
+  .item-img {
+    border-radius: 12px;
+    border: 1px solid color-mix(in srgb, var(--page-text) 9%, transparent);
+    background-color: color-mix(in srgb, var(--page-text) 4%, transparent);
+    box-shadow: none;
+  }
+}
+
+.client-detail__gallery-loading {
+  min-height: 280px;
+  margin: 0 clamp(1.25rem, 4vw, 3rem);
+  border-radius: 12px;
+  background: color-mix(in srgb, var(--page-text) 4%, transparent);
+}
+
+.client-detail__related {
+  padding: clamp(2rem, 5vw, 3rem) 0;
+  border-top: 1px solid color-mix(in srgb, var(--page-text) 8%, transparent);
+}
+
+.client-detail__related-header {
+  margin-bottom: clamp(1.25rem, 3vw, 1.75rem);
+
+  h2 {
+    margin: 0;
+    font-size: clamp(1.25rem, 2.5vw, 1.75rem);
+    font-weight: 500;
+    letter-spacing: -0.02em;
+  }
+}
+
+.client-detail__related-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(0.85rem, 2vw, 1.25rem);
+
+  @media (max-width: 900px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.client-detail__related-card {
+  display: grid;
+  grid-template-columns: 88px 1fr;
+  gap: 1rem;
+  align-items: center;
+  padding: 0.85rem;
+  border-radius: 14px;
+  border: 1px solid color-mix(in srgb, var(--page-text) 12%, transparent);
+  background: color-mix(in srgb, var(--page-text) 3%, transparent);
+  color: inherit;
+  text-decoration: none;
+  transition:
+    transform 0.3s ease,
+    border-color 0.3s ease;
+
+  &:hover,
+  &:focus-visible {
+    transform: translateY(-2px);
+    border-color: color-mix(in srgb, var(--page-accent) 45%, transparent);
+  }
+}
+
+.client-detail__related-shell {
+  width: 88px;
+  height: 88px;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.client-detail__related-img,
+.client-detail__related-shell .media-shell__media {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.client-detail__related-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  min-width: 0;
+}
+
+.client-detail__related-title {
+  font-size: 0.88rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.client-detail__related-tags {
+  font-size: 0.68rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  opacity: 0.55;
+  line-height: 1.45;
+}
+
+.client-detail__footer {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(0.85rem, 2vw, 1.25rem);
+  padding-top: clamp(1.5rem, 4vw, 2.5rem);
+  padding-bottom: clamp(2.5rem, 6vw, 4rem);
+  border-top: 1px solid color-mix(in srgb, var(--page-text) 10%, transparent);
+
+  @media (max-width: 760px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.client-detail__nav-slot--empty {
+  min-height: 1px;
+}
+
+.client-detail__nav-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  padding: 1rem;
+  border-radius: 14px;
+  border: 1px solid color-mix(in srgb, var(--page-text) 12%, transparent);
+  background: color-mix(in srgb, var(--page-text) 3%, transparent);
+  color: inherit;
+  text-decoration: none;
+  transition:
+    transform 0.3s ease,
+    border-color 0.3s ease;
+
+  &:hover,
+  &:focus-visible {
+    transform: translateY(-2px);
+    border-color: color-mix(in srgb, var(--page-accent) 45%, transparent);
+  }
+}
+
+.client-detail__nav-label {
+  font-size: 0.68rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  opacity: 0.45;
+}
+
+.client-detail__nav-body {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+}
+
+.client-detail__nav-card--next .client-detail__nav-body {
+  flex-direction: row-reverse;
+}
+
+.client-detail__nav-card--next .client-detail__nav-copy {
+  text-align: right;
+}
+
+.client-detail__nav-thumb-shell {
+  flex-shrink: 0;
+  width: 72px;
+  height: 72px;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.client-detail__nav-thumb,
+.client-detail__nav-thumb-shell .media-shell__media {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.client-detail__nav-copy {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 0.25rem;
+  min-width: 0;
+}
+
+.client-detail__nav-title {
+  font-size: 0.88rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.client-detail__nav-meta {
+  font-size: 0.65rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  opacity: 0.5;
+  line-height: 1.4;
+}
+
+.client-detail__nav-arrow {
+  font-size: 1rem;
+  opacity: 0.55;
+}
+
+@media (max-width: 560px) {
+  .client-detail__nav-thumb-shell {
+    width: 64px;
+    height: 64px;
+  }
+}

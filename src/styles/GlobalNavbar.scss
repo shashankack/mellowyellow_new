@@ -1,0 +1,103 @@
+.global-navbar {
+  position: relative;
+  z-index: 1000;
+  pointer-events: none;
+  --nav-height: 4.25rem;
+}
+
+.global-navbar__menu {
+  z-index: 1000;
+}
+
+.global-navbar__actions {
+  display: flex;
+  align-items: center;
+  gap: clamp(0.75rem, 2vw, 1.5rem);
+  margin-left: auto;
+  margin-right: 0.5rem;
+  pointer-events: auto;
+  flex-shrink: 0;
+}
+
+.global-navbar__status {
+  font-size: 0.68rem;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: color-mix(in srgb, var(--sm-header-text) 55%, transparent);
+  white-space: nowrap;
+}
+
+.global-navbar__themes {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.global-navbar__theme-swatch {
+  width: 1rem;
+  height: 1rem;
+  padding: 0;
+  border-radius: 999px;
+  border: 2px solid color-mix(in srgb, var(--sm-header-text) 28%, transparent);
+  cursor: pointer;
+  transition:
+    transform 0.2s ease,
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+
+  &:hover {
+    transform: scale(1.1);
+    border-color: color-mix(in srgb, var(--sm-header-text) 65%, transparent);
+  }
+
+  &.is-active {
+    border-color: var(--sm-header-text);
+    transform: scale(1.14);
+    box-shadow: 0 0 0 2px color-mix(in srgb, var(--sm-header-text) 18%, transparent);
+  }
+}
+
+.global-navbar .staggered-menu-header {
+  border-bottom-color: color-mix(in srgb, var(--sm-header-text) 14%, transparent);
+  backdrop-filter: blur(16px);
+  transition:
+    transform 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 0.35s ease;
+  will-change: transform;
+}
+
+.global-navbar.is-hidden .staggered-menu-header {
+  transform: translateY(calc(-100% - 1px));
+  opacity: 0;
+  pointer-events: none;
+}
+
+@media (max-width: 767px) {
+  .global-navbar {
+    --nav-height: 3.75rem;
+  }
+
+  .global-navbar__status {
+    display: none;
+  }
+
+  .global-navbar__themes {
+    gap: 0.25rem;
+  }
+
+  .global-navbar__theme-swatch {
+    width: 0.75rem;
+    height: 0.75rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .global-navbar__theme-swatch {
+    transition: none;
+  }
+
+  .global-navbar .staggered-menu-header {
+    transition: none;
+  }
+}

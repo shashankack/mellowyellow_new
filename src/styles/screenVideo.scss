@@ -1,0 +1,119 @@
+.video-container-screen {
+    width: 100%;
+
+    .media-shell--fill,
+    .video-bg-screen {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+}
+
+.video-container-screen-mid {
+    width: 100vw;
+    height: auto;
+    margin-top: 5rem;
+    display: none;
+}
+
+.mobile-vid {
+    display: flex;
+    flex-direction: column;
+}
+
+.video-list {
+    display: flex;
+    flex-direction: column; 
+    margin-top: 7rem;
+    
+
+    > ul {
+        display: flex;
+        flex-direction: column;
+        list-style: none;
+        width: 100vw;
+        justify-content: center;
+        align-items: center;
+        padding-left: 0rem;
+
+        >   li {
+            font-size: 5rem;
+            display: block;
+            margin-top: 1rem;
+            position: relative;
+            width: 96%;
+            padding: 0.5rem 1rem;
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.1);
+            transition: background 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+            
+            &:hover {
+                background: linear-gradient(135deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.05));
+                box-shadow: 0px 4px 20px rgba(255, 255, 255, 0.3);
+            }
+        }
+    }
+}
+
+.mobile-vid{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+// Mobile specific styles
+@media screen and (max-width: 768px) {
+    .video-container-screen {
+        width: 100%;
+
+        .media-shell__media,
+        .video-bg-screen {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+        }
+    }
+
+    .video-container-screen-mid {
+        width: 100vw;
+        height: auto;
+        margin-top: 8rem;
+        display: block;
+    }
+
+    .video-list {
+        display: flex;
+        flex-direction: column; 
+        margin-top: 7rem;
+        display: inline;
+
+        > ul {
+            display: flex;
+            flex-direction: column;
+            list-style: none;
+            width: 92vw;
+            justify-content: center;
+            align-items: center;
+            padding-left: 0rem;
+
+            > li {
+                font-size: 3rem;
+                display: block;
+            }
+        }
+    }
+}
+
+// Small mobile devices
+@media screen and (max-width: 480px) {
+    .video-container-screen {
+        height: 90vh;
+
+        .media-shell__media,
+        .video-bg-screen {
+            object-position: center center;
+        }
+    }
+}

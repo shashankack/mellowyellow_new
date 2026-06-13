@@ -1,0 +1,134 @@
+.media-preview {
+  position: fixed;
+  inset: 0;
+  z-index: 1100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: clamp(1rem, 3vw, 2rem);
+  box-sizing: border-box;
+}
+
+.media-preview__backdrop {
+  position: absolute;
+  inset: 0;
+  border: none;
+  padding: 0;
+  margin: 0;
+  background: rgba(0, 0, 0, 0.88);
+  cursor: pointer;
+}
+
+.media-preview__panel {
+  position: relative;
+  z-index: 1;
+  width: min(96vw, 1100px);
+  max-height: min(92vh, 900px);
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+  padding: clamp(0.85rem, 2vw, 1.25rem);
+  border-radius: 14px;
+  background: #111;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.45);
+  overflow: hidden;
+}
+
+.media-preview__close {
+  position: absolute;
+  top: 0.65rem;
+  right: 0.65rem;
+  z-index: 2;
+  width: 2.25rem;
+  height: 2.25rem;
+  border: none;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.12);
+  color: #fff;
+  font-size: 1.5rem;
+  line-height: 1;
+  cursor: pointer;
+  transition: background 0.2s ease;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.22);
+  }
+}
+
+.media-preview__stage {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  border-radius: 8px;
+  background: #000;
+}
+
+.media-preview__image-shell {
+  width: 100%;
+  height: 100%;
+  max-height: min(72vh, 760px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.media-preview__image {
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  max-height: min(72vh, 760px);
+  object-fit: contain;
+}
+
+.media-preview__video-shell,
+.media-preview__video {
+  width: 100%;
+  max-width: 100%;
+  max-height: min(72vh, 760px);
+  display: block;
+  object-fit: contain;
+  background: #000;
+}
+
+.media-preview__video-shell {
+  max-height: min(72vh, 760px);
+
+  .media-shell__media {
+    width: 100%;
+    max-height: min(72vh, 760px);
+    object-fit: contain;
+  }
+}
+
+.media-preview__meta {
+  padding: 0 0.25rem 0.15rem;
+
+  h3 {
+    margin: 0 0 0.35rem;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #fff;
+  }
+
+  p {
+    margin: 0;
+    font-size: 0.9rem;
+    line-height: 1.5;
+    color: rgba(255, 255, 255, 0.72);
+  }
+}
+
+@media (max-width: 600px) {
+  .media-preview {
+    padding: 0.75rem;
+  }
+
+  .media-preview__panel {
+    width: 100%;
+    max-height: 94vh;
+  }
+}

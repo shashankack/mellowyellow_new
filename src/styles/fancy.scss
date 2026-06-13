@@ -1,0 +1,1093 @@
+.container-fancy {
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: start;
+
+  
+}
+
+.content-wrapper-fancy {
+  position: relative;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+ 
+  margin-top: 3rem;
+  
+
+}
+.title-fancy{
+  padding: 0rem;
+  
+  
+  
+}
+
+.description-fancy{
+  padding: 0rem;
+}
+.scrolling-text-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  overflow: hidden;
+}
+
+.marquee-row {
+  width: 100%;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.marquee-track {
+  display: flex;
+  width: max-content;
+  will-change: transform;
+
+  h1 {
+    white-space: nowrap;
+    flex-shrink: 0;
+    margin: 0;
+  }
+}
+
+.overlay-image {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: min(300px, 80vw); /* Match the width in the img style */
+  height: 400px;
+  aspect-ratio: 1 / 1; /* Create a square aspect ratio */
+  z-index: 10; /* Higher z-index to ensure it's above scrolling text */
+  pointer-events: none;
+}
+
+/* Specific styles for slider inside overlay-image */
+.overlay-image .slider-container {
+  width: 100%;
+  height: 100%;
+}
+
+.overlay-image .slider-container .media-shell--fill {
+  position: absolute;
+  inset: 0;
+}
+
+.overlay-image .slide-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.box-fancy {
+  position: relative;
+  z-index: 1;
+  background-color: transparent;
+  padding: 5px;
+  width: max-content;
+
+  h2 {
+    font-size: 24px;
+    margin-bottom: 10px;
+    color: #333;
+  }
+  
+  h1 {
+    font-size: 100px;
+    color: #ce3f3f;
+    line-height: 0.8;
+    margin: 0 auto;
+    
+  }
+}
+
+.box-left-fancy {
+  align-self: flex-start;
+  background-color: transparent;
+}
+
+.box-right-fancy {
+  align-self: flex-end;
+  background-color: transparent;
+}
+
+@media (max-width: 1920px) and (max-height: 1080px) {
+  .container-fancy {
+    width: 100%;
+  }
+
+  .box-fancy h1 {
+    font-size: 150px;
+  }
+
+  .overlay-image {
+    width: min(350px, 60vw);
+  }
+
+  .title-fancy, .description-fancy {
+    padding-left: 0rem;
+  }
+}
+
+
+@media (max-width: 1900px) and (max-height: 930px) {
+  .container-fancy {
+    width: 100%;
+  }
+
+  .box-fancy h1 {
+    font-size: 120px;
+  }
+
+  .overlay-image {
+    width: min(350px, 60vw);
+  }
+
+  .title-fancy, .description-fancy {
+    padding-left: 0rem;
+  }
+}
+
+/* Large Screens: MacBook Pro 16" (More Space Mode) */
+@media (max-width: 1900px) and (max-height: 830px) {
+  .container-fancy {
+    width: 100%;
+  }
+
+  .box-fancy h1 {
+    font-size: 100px;
+  }
+
+  .overlay-image {
+    width: min(350px, 60vw);
+  }
+
+  .title-fancy, .description-fancy {
+    padding-left: 0rem;
+  }
+}
+
+
+
+//HEIGHT 900 FIXED --1440-1728
+
+/* MacBook Pro 16" (Default Mode) */
+
+
+
+
+@media (max-width: 1854px) and (max-height: 970px) {
+  .container-fancy {
+    width: 100%;
+  }
+
+  .box-fancy h1 {
+    font-size: 130px;
+  }
+
+  .overlay-image {
+    width: min(350px, 70vw);
+    height: 80%;
+  }
+
+  .title-fancy, .description-fancy {
+    padding-left: 1rem;
+  }
+}
+
+
+@media (max-width: 1728px) and (max-height: 1117px) {
+  .container-fancy {
+    width: 100%;
+  }
+
+  .box-fancy h1 {
+    font-size: 160px;
+  }
+
+  .overlay-image {
+    width: min(350px, 70vw);
+    height: 80%;
+  }
+
+  .title-fancy, .description-fancy {
+    padding-left: 1rem;
+  }
+}
+
+
+@media (max-width: 1728px) and (max-height: 900px) {
+  .container-fancy {
+    width: 100%;
+  }
+
+  .box-fancy h1 {
+    font-size: 119px;
+  }
+
+  .overlay-image {
+    width: min(350px, 70vw);
+    height: 80%;
+  }
+
+  .title-fancy, .description-fancy {
+    padding-left: 0rem;
+  }
+}
+
+
+@media (max-width: 1680px) and (max-height: 950px) {
+  .container-fancy {
+    width: 100%;
+  }
+
+  .box-fancy h1 {
+    font-size: 125px;
+  }
+
+  .overlay-image {
+    width: min(350px, 70vw);
+    height: 80%;
+  }
+
+  .title-fancy, .description-fancy {
+    padding-left: 0rem;
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+@media (max-width: 1612px) and (max-height: 950px) {
+  .container-fancy {
+    width: 100%;
+  }
+
+  .box-fancy h1 {
+    font-size: 125px;
+  }
+
+  .overlay-image {
+    width: min(350px, 70vw);
+    height: 80%;
+  }
+
+  .title-fancy, .description-fancy {
+    padding-left: 0rem;
+  }
+}
+
+
+@media (max-width: 1600px) and (max-height: 1001px) {
+  .container-fancy {
+    width: 100%;
+  }
+
+  .box-fancy h1 {
+    font-size: 135px;
+  }
+
+  .overlay-image {
+    width: min(350px, 70vw);
+    height: 80%;
+  }
+
+  .title-fancy, .description-fancy {
+    padding-left: 0rem;
+  }
+}
+
+
+@media (max-width: 1600px) and (max-height: 810px) {
+  .container-fancy {
+    width: 100%;
+  }
+
+  .box-fancy h1 {
+    font-size: 100px;
+  }
+
+  .overlay-image {
+    width: min(350px, 70vw);
+    height: 80%;
+  }
+
+  .title-fancy, .description-fancy {
+    padding-left: 0rem;
+  }
+}
+
+
+
+@media (max-width: 1588px) and (max-height: 878px) {
+  .container-fancy {
+    width: 100%;
+  }
+
+  .box-fancy h1 {
+    font-size: 105px
+  }
+
+  .overlay-image {
+    width: min(350px, 70vw);
+    height: 80%;
+  }
+
+  .title-fancy, .description-fancy {
+    padding-left: 1rem;
+  }
+}
+
+
+
+@media (max-width: 1580px) and (max-height: 878px) {
+  .container-fancy {
+    width: 100%;
+  }
+
+  .box-fancy h1 {
+    font-size: 115px
+  }
+
+  .overlay-image {
+    width: min(350px, 70vw);
+    height: 80%;
+  }
+
+  .title-fancy, .description-fancy {
+    padding-left: 1rem;
+  }
+}
+
+
+
+
+@media (max-width: 1568px) and (max-height: 930px) {
+  .container-fancy {
+    width: 100%;
+  }
+
+  .box-fancy h1 {
+    font-size: 125px
+  }
+
+  .overlay-image {
+    width: min(350px, 70vw);
+    height: 80%;
+  }
+
+  .title-fancy, .description-fancy {
+    padding-left: 1rem;
+  }
+}
+
+@media (max-width: 1568px) and (max-height: 900px) {
+  .container-fancy {
+    width: 100%;
+  }
+
+  .box-fancy h1 {
+    font-size: 113px
+  }
+
+  .overlay-image {
+    width: min(350px, 70vw);
+    height: 80%;
+  }
+
+  .title-fancy, .description-fancy {
+    padding-left: 1rem;
+  }
+}
+
+@media (max-width: 1540px) and (max-height: 945px) {
+  .container-fancy {
+    width: 100%;
+  }
+
+  .box-fancy h1 {
+    font-size: 125px
+  }
+
+  .overlay-image {
+    width: min(350px, 70vw);
+    height: 80%;
+  }
+
+  .title-fancy, .description-fancy {
+    padding-left: 1rem;
+  }
+}
+
+
+@media (max-width: 1540px) and (max-height: 900px) {
+  .container-fancy {
+    width: 100%;
+  }
+
+  .box-fancy h1 {
+    font-size: 118px
+  }
+
+  .overlay-image {
+    width: min(350px, 70vw);
+    height: 80%;
+  }
+
+  .title-fancy, .description-fancy {
+    padding-left: 1rem;
+  }
+}
+
+
+@media (max-width: 1540px) and (max-height: 840px) {
+  .container-fancy {
+    width: 100%;
+  }
+
+  .box-fancy h1 {
+    font-size: 107px
+  }
+
+  .overlay-image {
+    width: min(350px, 70vw);
+    height: 80%;
+  }
+
+  .title-fancy, .description-fancy {
+    padding-left: 1rem;
+  }
+}
+
+@media (max-width: 1540px) and (max-height: 790px) {
+  .container-fancy {
+    width: 100%;
+  }
+
+  .box-fancy h1 {
+    font-size: 90px
+  }
+
+  .overlay-image {
+    width: min(350px, 70vw);
+    height: 80%;
+  }
+
+  .title-fancy, .description-fancy {
+    padding-left: 1rem;
+  }
+}
+
+
+
+
+
+
+/* MacBook Pro 14" (Default Mode) */
+
+
+/* MacBook Pro 14" (More Space Mode) & MacBook Air (M2) */
+
+
+
+
+
+@media (max-width: 1512px) and (max-height: 982px) {
+  .container-fancy {
+    width: 100%;
+  }
+
+  .box-fancy h1 {
+    font-size: clamp(100px, 9vw, 140px);
+  }
+
+  .overlay-image {
+    width: min(350px, 70vw);
+    height: 80%;
+  }
+
+  .title-fancy, .description-fancy {
+    padding-left: 1rem;
+  }
+}
+
+
+@media (max-width: 1512px) and (max-height: 952px) {
+  .container-fancy {
+    width: 100%;
+  }
+
+  .box-fancy h1 {
+    font-size: 128px
+  }
+
+  .overlay-image {
+    width: min(350px, 70vw);
+    height: 80%;
+  }
+
+  .title-fancy, .description-fancy {
+    padding-left: 1rem;
+  }
+}
+
+@media (max-width: 1512px) and (max-height: 930px) {
+  .container-fancy {
+    width: 100%;
+  }
+
+  .box-fancy h1 {
+    font-size: 120px;
+  }
+
+  .overlay-image {
+    width: min(350px, 70vw);
+    height: 80%;
+  }
+
+  .title-fancy, .description-fancy {
+    padding-left: 0rem;
+  }
+}
+
+
+@media (max-width: 1512px) and (max-height: 900px) {
+  .container-fancy {
+    width: 100%;
+  }
+
+  .box-fancy h1 {
+    font-size: 118px;
+  }
+
+  .overlay-image {
+    width: min(350px, 70vw);
+    height: 80%;
+  }
+
+  .title-fancy, .description-fancy {
+    padding-left: 0rem;
+  }
+}
+
+@media (max-width: 1512px) and (max-height: 899px) {
+  .container-fancy {
+    width: 100%;
+  }
+
+  .box-fancy h1 {
+    font-size: 115px;
+  }
+
+  .overlay-image {
+    width: min(350px, 70vw);
+    height: 80%;
+  }
+
+  .title-fancy, .description-fancy {
+    padding-left: 0rem;
+  }
+}
+
+
+@media (max-width: 1512px) and (max-height: 860px) {
+  .container-fancy {
+    width: 100%;
+  }
+
+  .box-fancy h1 {
+    font-size: 110px;
+  }
+
+  .overlay-image {
+    width: min(350px, 70vw);
+    height: 80%;
+  }
+
+  .title-fancy, .description-fancy {
+    padding-left: 0rem;
+  }
+}
+
+
+@media (max-width: 1512px) and (max-height: 830px) {
+  .container-fancy {
+    width: 100%;
+  }
+
+  .box-fancy h1 {
+    font-size: 104px;
+  }
+
+  .overlay-image {
+    width: min(350px, 70vw);
+    height: 80%;
+  }
+
+  .title-fancy, .description-fancy {
+    padding-left: 0rem;
+  }
+}
+
+
+
+
+@media (max-width: 1512px) and (max-height: 800px) {
+  .container-fancy {
+    width: 100%;
+  }
+
+  .box-fancy h1 {
+    font-size: 98px;
+  }
+
+  .overlay-image {
+    width: min(350px, 70vw);
+    height: 80%;
+  }
+
+  .title-fancy, .description-fancy {
+    padding-left: 0rem;
+  }
+}
+
+
+@media (max-width: 1466px) and (max-height: 780px) {
+  .container-fancy {
+    width: 100%;
+  }
+
+  .box-fancy h1 {
+    font-size: 95px;
+  }
+
+  .overlay-image {
+    width: min(350px, 70vw);
+    height: 80%;
+  }
+
+  .title-fancy, .description-fancy {
+    padding-left: 0rem;
+  }
+}
+
+
+
+@media (max-width: 1466px) and (max-height: 730px) {
+  .container-fancy {
+    width: 100%;
+  }
+
+  .box-fancy h1 {
+    font-size: 80px;
+  }
+
+  .overlay-image {
+    width: min(350px, 70vw);
+    height: 80%;
+  }
+
+  .title-fancy, .description-fancy {
+    padding-left: 0rem;
+  }
+}
+
+
+@media (max-width: 1466px) and (max-height: 690px) {
+  .container-fancy {
+    width: 100%;
+  }
+
+  .box-fancy h1 {
+    font-size: 75px;
+  }
+
+  .overlay-image {
+    width: min(350px, 70vw);
+    height: 80%;
+  }
+
+  .title-fancy, .description-fancy {
+    padding-left: 0rem;
+  }
+}
+
+@media (max-width: 1440px) and (max-height: 900px) {
+  .container-fancy {
+    width: 100%;
+  }
+
+  .box-fancy h1 {
+    font-size: 119px;
+  }
+
+  .overlay-image {
+    width: min(350px, 70vw);
+    height: 80%;
+  }
+
+  .title-fancy, .description-fancy {
+    padding-left: 0rem;
+  }
+}
+
+
+@media (max-width: 1440px) and (max-height: 860px) {
+  .container-fancy {
+    width: 100%;
+  }
+
+  .box-fancy h1 {
+    font-size: 110px;
+  }
+
+  .overlay-image {
+    width: min(350px, 70vw);
+    height: 80%;
+  }
+
+  .title-fancy, .description-fancy {
+    padding-left: 0rem;
+  }
+}
+
+/* MacBook Air 13" (M1, M2, M3 Default Mode) */
+@media (max-width: 1440px) and (max-height: 830px) {
+  .container-fancy {
+    width: 100%;
+  }
+
+  .box-fancy h1 {
+    font-size: 100px;
+  }
+
+  .overlay-image {
+    width: min(350px, 70vw);
+    height: 80%;
+  }
+
+  .title-fancy, .description-fancy {
+    padding-left: 0rem;
+  }
+}
+
+
+
+
+
+
+
+
+
+/* MacBook Air 13" (M1, M2, M3 Default Mode) */
+@media (max-width: 1440px) and (max-height: 800px) {
+  .container-fancy {
+    width: 100%;
+  }
+
+  .box-fancy h1 {
+    font-size: 100px;
+  }
+
+  .overlay-image {
+    width: min(350px, 70vw);
+    height: 80%;
+  }
+
+  .title-fancy, .description-fancy {
+    padding-left: 0rem;
+  }
+}
+
+@media (max-width: 1440px) and (max-height: 780px) {
+  .container-fancy {
+    width: 100%;
+  }
+
+  .box-fancy h1 {
+    font-size: 90px;
+  }
+
+  .overlay-image {
+    width: min(350px, 70vw);
+    height: 80%;
+  }
+
+  .title-fancy, .description-fancy {
+    padding-left: 0rem;
+  }
+}
+
+@media (max-width: 1440px) and (max-height: 700px) {
+  .container-fancy {
+    width: 100%;
+  }
+
+  .box-fancy h1 {
+    font-size: 80px;
+  }
+
+  .overlay-image {
+    width: min(350px, 70vw);
+    height: 80%;
+  }
+
+  .title-fancy, .description-fancy {
+    padding-left: 0rem;
+  }
+}
+
+
+
+@media (max-width: 1340px) and (max-height: 700px) {
+  .container-fancy {
+    width: 100%;
+  }
+
+  .box-fancy h1 {
+    font-size: 75px;
+  }
+
+  .overlay-image {
+    width: min(350px, 70vw);
+    height: 80%;
+  }
+
+  .title-fancy, .description-fancy {
+    padding-left: 0rem;
+  }
+}
+
+
+@media (max-width: 1310px) and (max-height: 631px) {
+  .container-fancy {
+    width: 100%;
+  }
+
+  .box-fancy h1 {
+    font-size: 55px;
+  }
+
+  .overlay-image {
+    width: min(350px, 70vw);
+    height: 80%;
+  }
+
+  .title-fancy, .description-fancy {
+    padding-left: 0rem;
+  }
+}
+
+
+@media (max-width: 1280px) and (max-height: 600px) {
+  .container-fancy {
+    width: 100%;
+  }
+
+  .box-fancy h1 {
+    font-size: 55px;
+  }
+
+  .overlay-image {
+    width: min(350px, 70vw);
+    height: 80%;
+  }
+
+  .title-fancy, .description-fancy {
+    padding-left: 0rem;
+  }
+}
+
+
+@media (max-width: 1280px) and (max-height: 585px) {
+  .container-fancy {
+    width: 100%;
+  }
+
+  .box-fancy h1 {
+    font-size: 50px;
+  }
+
+  .overlay-image {
+    width: min(350px, 70vw);
+    height: 80%;
+  }
+
+  .title-fancy, .description-fancy {
+    padding-left: 0rem;
+  }
+}
+
+
+@media (max-width: 1256px) and (max-height: 607px) {
+  .container-fancy {
+    width: 100%;
+  }
+
+  .box-fancy h1 {
+    font-size: 55px;
+  }
+
+  .overlay-image {
+    width: min(350px, 70vw);
+    height: 80%;
+  }
+
+  .title-fancy, .description-fancy {
+    padding-left: 0rem;
+  }
+}
+
+@media (max-width: 1200px) and (max-height: 800px) {
+  .container-fancy {
+    width: 100%;
+  }
+
+  .box-fancy h1 {
+    font-size: 95px;
+  }
+
+  .overlay-image {
+    width: min(350px, 70vw);
+    height: 80%;
+  }
+
+  .title-fancy, .description-fancy {
+    padding-left: 0rem;
+  }
+}
+
+
+@media (max-width: 1200px) and (max-height: 740px) {
+  .container-fancy {
+    width: 100%;
+  }
+
+  .box-fancy h1 {
+    font-size: 80px;
+  }
+
+  .overlay-image {
+    width: min(350px, 70vw);
+    height: 80%;
+  }
+
+  .title-fancy, .description-fancy {
+    padding-left: 0rem;
+  }
+}
+
+@media (max-width: 1200px) and (max-height: 720px) {
+  .container-fancy {
+    width: 100%;
+  }
+
+  .box-fancy h1 {
+    font-size: 80px;
+  }
+
+  .overlay-image {
+    width: min(350px, 70vw);
+    height: 80%;
+  }
+
+  .title-fancy, .description-fancy {
+    padding-left: 0rem;
+  }
+}
+
+
+@media (max-width: 1200px) and (max-height: 700px) {
+  .container-fancy {
+    width: 100%;
+  }
+
+  .box-fancy h1 {
+    font-size: 74px;
+  }
+
+  .overlay-image {
+    width: min(350px, 70vw);
+    height: 80%;
+  }
+
+  .title-fancy, .description-fancy {
+    padding-left: 0rem;
+  }
+}
+
+
+@media (max-width: 1200px) and (max-height: 585px) {
+  .container-fancy {
+    width: 100%;
+  }
+
+  .box-fancy h1 {
+    font-size: 50px;
+  }
+
+  .overlay-image {
+    width: min(350px, 70vw);
+    height: 80%;
+  }
+
+  .title-fancy, .description-fancy {
+    padding-left: 0rem;
+  }
+}
+
+
+
+/* Small Laptops, Large Tablets */
+@media (max-width: 800px) {
+  .container-fancy {
+    width: 100%;
+  }
+
+  .box-fancy h1 {
+    font-size: 70px;
+  }
+
+  .overlay-image {
+    width: min(250px, 60vw);
+  }
+
+  .title-fancy, .description-fancy {
+    padding-left: 0rem;
+  }
+}
+
+/* Mobile Devices */
+@media (max-width: 500px) {
+  .container-fancy {
+    width: 100%;
+  }
+
+  .box-fancy h1 {
+    font-size: 90px;
+  }
+
+  .overlay-image {
+    width: min(250px, 70vw);
+  }
+
+  .title-fancy, .description-fancy {
+    padding-left: 1rem;
+  }
+}
