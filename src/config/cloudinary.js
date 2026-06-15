@@ -1,7 +1,22 @@
 const CLOUD_NAME = import.meta.env.VITE_CLOUDINARY_CLOUD_NAME ?? "";
 const FOLDER_PREFIX = import.meta.env.VITE_CLOUDINARY_FOLDER ?? "mellowyellow";
+const MEDIA_SOURCE_SETTING = (
+  import.meta.env.VITE_MEDIA_SOURCE ?? ""
+).toLowerCase();
 
 const VIDEO_EXTENSIONS = new Set([".mp4", ".webm", ".mov", ".m4v"]);
+const MEDIA_PATH_RE = /^\/(assets|content|clients)\//;
+
+const shouldUseCloudinary = () => {
+  if (MEDIA_SOURCE_SETTING === "local") return false;
+  if (MEDIA_SOURCE_SETTING === "cloudinary") return Boolean(CLOUD_NAME);
+  return Boolean(CLOUD_NAME);
+};
+
+export const getMediaSource = () =>
+  shouldUseCloudinary() ? "cloudinary" : "local";
+
+export const isCloudinaryConfigured = () => Boolean(CLOUD_NAME);
 
 const normalizePath = (path) => path.replace(/^\/+/, "").replace(/\\/g, "/");
 
@@ -14,13 +29,14 @@ const getResourceType = (path) => {
 };
 
 /**
- * Resolve a site media path (`/assets/...` or `/content/...`) to Cloudinary
- * when VITE_CLOUDINARY_CLOUD_NAME is set, otherwise keep the local public path.
+ * Resolve a site media path (`/assets/...`, `/content/...`, or `/clients/...`) using
+ * VITE_MEDIA_SOURCE (`cloudinary` | `local`). When unset, uses Cloudinary
+ * if VITE_CLOUDINARY_CLOUD_NAME is configured, otherwise local files.
  */
 export function media(path, options = {}) {
   const normalized = normalizePath(path);
 
-  if (!CLOUD_NAME) {
+  if (!shouldUseCloudinary()) {
     return `/${normalized}`;
   }
 
@@ -32,6 +48,24 @@ export function media(path, options = {}) {
     : `${defaultTransforms}/`;
 
   return `https://res.cloudinary.com/${CLOUD_NAME}/${resourceType}/upload/${transforms}${publicId}`;
+}
+
+export function resolveMediaDeep(value) {
+  if (typeof value === "string") {
+    return MEDIA_PATH_RE.test(value) ? media(value) : value;
+  }
+
+  if (Array.isArray(value)) {
+    return value.map(resolveMediaDeep);
+  }
+
+  if (value !== null && typeof value === "object") {
+    return Object.fromEntries(
+      Object.entries(value).map(([key, entry]) => [key, resolveMediaDeep(entry)]),
+    );
+  }
+
+  return value;
 }
 
 /** True for Cloudinary (and other remote) URLs that benefit from load placeholders. */

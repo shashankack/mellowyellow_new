@@ -92,8 +92,7 @@ const QuoteRevealSection = ({
           <p>
             We transform your social media presence into a powerful platform for
             connection and growth. Our approach is to combine creativity,
-            strategy, and analytics to ensure your brand stands out in the
-            digital crowd.
+            strategy to ensure your brand stands out in the digital crowd.
           </p>
 
           <motion.ul
@@ -119,7 +118,7 @@ const QuoteRevealSection = ({
             initial="hidden"
             animate={isInView ? "visible" : "hidden"}
           >
-            {bulletPoints.map((item, index) => (
+            {/*   {bulletPoints.map((item, index) => (
               <motion.li
                 key={index}
                 variants={{
@@ -133,7 +132,7 @@ const QuoteRevealSection = ({
               >
                 {item}
               </motion.li>
-            ))}
+            ))} */}
           </motion.ul>
         </motion.div>
       </motion.div>

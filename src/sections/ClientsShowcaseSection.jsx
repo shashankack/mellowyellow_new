@@ -1,18 +1,13 @@
-import { useEffect, useState, useRef, memo, useCallback } from "react";
+import { useEffect, useState, useRef, memo, useCallback, useMemo } from "react";
 import { motion, AnimatePresence, useInView, useReducedMotion } from "framer-motion";
 import { useColor } from "../context/ColorContext";
-import { allClients } from "../data/portfolio";
 import MediaImage from "../components/MediaImage";
 import "../styles/ClientsShowcaseSection.scss";
 
-const CLIENT_COUNT = allClients.length;
 const THUMB_SIZE = 80;
 const THUMB_GAP = 40;
 const ITEM_HEIGHT = THUMB_SIZE + THUMB_GAP;
-const LOOP_POINT = CLIENT_COUNT * ITEM_HEIGHT;
 const AUTO_MS = 3000;
-
-const stripClients = [...allClients, ...allClients];
 
 const EASE = [0.22, 1, 0.36, 1];
 const FAST = { duration: 0.25, ease: EASE };
@@ -20,6 +15,16 @@ const SMOOTH = { duration: 0.5, ease: EASE };
 const STRIP_SPRING = { type: "spring", stiffness: 110, damping: 22, mass: 0.85 };
 const THUMB_SPRING = { type: "spring", stiffness: 260, damping: 22 };
 const PROGRESS_SPRING = { type: "spring", stiffness: 140, damping: 24, mass: 0.6 };
+
+const revealProps = (reduceMotion) =>
+  reduceMotion
+    ? {}
+    : {
+        initial: { y: 12 },
+        whileInView: { y: 0 },
+        viewport: { once: true, amount: 0.08 },
+        transition: { duration: 0.45, ease: EASE },
+      };
 
 const imageCache = new Map();
 
@@ -39,21 +44,24 @@ const preloadImage = (src) => {
   return promise;
 };
 
-const preloadAround = (index) => {
+const preloadAround = (clients, index) => {
+  const count = clients.length;
+  if (!count) return;
+
   [
     index,
-    (index + 1) % CLIENT_COUNT,
-    (index - 1 + CLIENT_COUNT) % CLIENT_COUNT,
+    (index + 1) % count,
+    (index - 1 + count) % count,
   ].forEach((i) => {
-    preloadImage(allClients[i]?.content);
+    preloadImage(clients[i]?.content);
   });
 };
 
-const resolveStripPosition = (currentPosition, normalizedIndex) => {
+const resolveStripPosition = (currentPosition, normalizedIndex, loopPoint) => {
   const firstCopyPos = normalizedIndex * ITEM_HEIGHT;
-  const secondCopyPos = firstCopyPos + LOOP_POINT;
+  const secondCopyPos = firstCopyPos + loopPoint;
 
-  if (secondCopyPos >= LOOP_POINT) return firstCopyPos;
+  if (secondCopyPos >= loopPoint) return firstCopyPos;
 
   const distFirst = Math.abs(currentPosition - firstCopyPos);
   const distSecond = Math.abs(currentPosition - secondCopyPos);
@@ -61,108 +69,59 @@ const resolveStripPosition = (currentPosition, normalizedIndex) => {
   if (distSecond < distFirst) return secondCopyPos;
   if (distFirst < distSecond) return firstCopyPos;
 
-  return currentPosition >= LOOP_POINT / 2 ? secondCopyPos : firstCopyPos;
+  return currentPosition >= loopPoint / 2 ? secondCopyPos : firstCopyPos;
 };
 
-const HeroFrame = memo(({ activeIndex, reduceMotion }) => {
-  const [layers, setLayers] = useState(() => [
-    { src: allClients[0].content, visible: true },
-    { src: allClients[0].content, visible: false },
-  ]);
-  const frontRef = useRef(0);
-  const indexRef = useRef(0);
-  const client = allClients[activeIndex];
+const HeroFrame = memo(({ clients, activeIndex, reduceMotion }) => {
+  const client = clients[activeIndex];
+  const [shownSrc, setShownSrc] = useState(client.content);
+  const [isReady, setIsReady] = useState(true);
+  const shownRef = useRef(client.content);
   const transition = reduceMotion ? { duration: 0 } : SMOOTH;
 
   useEffect(() => {
-    if (activeIndex === indexRef.current) return;
+    const nextSrc = client.content;
+    if (nextSrc === shownRef.current) return undefined;
 
-    const nextClient = allClients[activeIndex];
     let cancelled = false;
+    setIsReady(false);
 
-    preloadImage(nextClient.content).then(() => {
+    preloadImage(nextSrc).then(() => {
       if (cancelled) return;
-
-      const front = frontRef.current;
-      const back = front === 0 ? 1 : 0;
-
-      setLayers((prev) => {
-        const next = [...prev];
-        next[back] = { src: nextClient.content, visible: false };
-        return next;
-      });
-
-      requestAnimationFrame(() => {
-        if (cancelled) return;
-        setLayers((prev) => {
-          const next = [...prev];
-          next[front] = { ...next[front], visible: false };
-          next[back] = { src: nextClient.content, visible: true };
-          return next;
-        });
-        frontRef.current = back;
-        indexRef.current = activeIndex;
-      });
+      shownRef.current = nextSrc;
+      setShownSrc(nextSrc);
+      setIsReady(true);
     });
 
     return () => {
       cancelled = true;
     };
-  }, [activeIndex]);
+  }, [activeIndex, client.content]);
 
   return (
     <div className="clients-showcase__hero">
-      <MediaImage
-        src={client.thumbnail}
-        alt=""
-        wrapperClassName="clients-showcase__hero-shell media-shell--fill clients-showcase__hero-placeholder"
-        className="clients-showcase__hero-img"
-        aria-hidden="true"
-        decoding="async"
-        draggable={false}
-      />
-
-      {layers.map((layer, i) => (
-        <motion.div
-          key={i}
-          className="clients-showcase__hero-img-wrap"
-          animate={{
-            opacity: layer.visible ? 1 : 0,
-            scale: layer.visible ? 1 : 1.04,
-          }}
-          transition={transition}
-        >
-          <MediaImage
-            src={layer.src}
-            alt={client.title}
-            wrapperClassName="clients-showcase__hero-shell media-shell--fill"
-            className="clients-showcase__hero-img"
-            decoding="async"
-            draggable={false}
-          />
-        </motion.div>
-      ))}
-
-      <div className="clients-showcase__hero-caption">
-        <AnimatePresence mode="sync" initial={false}>
-          <motion.p
-            key={client.id}
-            className="clients-showcase__hero-caption-title"
-            initial={reduceMotion ? false : { opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={reduceMotion ? { duration: 0 } : FAST}
-          >
-            {client.title}
-          </motion.p>
-        </AnimatePresence>
-      </div>
+      <motion.div
+        className="clients-showcase__hero-frame"
+        animate={{ opacity: isReady ? 1 : 0 }}
+        transition={transition}
+      >
+        <MediaImage
+          src={shownSrc}
+          alt={client.title}
+          className="clients-showcase__hero-img"
+          decoding="async"
+          draggable={false}
+        />
+      </motion.div>
     </div>
   );
 });
 
 const VerticalThumbStrip = memo(
   ({
+    clients,
+    clientCount,
+    stripClients,
     stripY,
     stripInstant,
     stripActiveIndex,
@@ -197,7 +156,7 @@ const VerticalThumbStrip = memo(
                   key={`${item.id}-${index}`}
                   type="button"
                   className={`clients-showcase__thumb ${isActive ? "is-active" : ""}`}
-                  onClick={() => onSelect(index % CLIENT_COUNT)}
+                  onClick={() => onSelect(index % clientCount)}
                   aria-label={`View ${item.title}`}
                   aria-selected={isActive}
                   role="tab"
@@ -211,7 +170,7 @@ const VerticalThumbStrip = memo(
                   <MediaImage
                     src={item.thumbnail}
                     alt=""
-                    loading={index < CLIENT_COUNT + 3 ? "eager" : "lazy"}
+                    loading={index < clientCount + 3 ? "eager" : "lazy"}
                     decoding="async"
                     draggable={false}
                     wrapperClassName="clients-showcase__thumb-shell media-shell--fill"
@@ -238,49 +197,61 @@ const VerticalThumbStrip = memo(
   },
 );
 
-const ClientsShowcaseSection = () => {
+const ClientsShowcaseSection = ({ clients }) => {
   const { theme } = useColor();
   const reduceMotion = useReducedMotion();
   const sectionRef = useRef(null);
   const stripYRef = useRef(0);
   const timerRef = useRef(null);
   const resetFrameRef = useRef(null);
-  const hasEnteredRef = useRef(false);
+
+  const clientCount = clients.length;
+  const loopPoint = clientCount * ITEM_HEIGHT;
+  const stripClients = useMemo(
+    () => [...clients, ...clients],
+    [clients],
+  );
 
   const [stripY, setStripY] = useState(0);
   const [stripInstant, setStripInstant] = useState(false);
   const [isPaused, setIsPaused] = useState(false);
-  const [entered, setEntered] = useState(false);
 
   stripYRef.current = stripY;
 
-  const activeIndex = Math.floor(stripY / ITEM_HEIGHT) % CLIENT_COUNT;
+  const activeIndex =
+    clientCount > 0 ? Math.floor(stripY / ITEM_HEIGHT) % clientCount : 0;
   const stripActiveIndex = Math.floor(stripY / ITEM_HEIGHT);
-  const client = allClients[activeIndex];
-  const progress = (activeIndex + 1) / CLIENT_COUNT;
+  const client = clients[activeIndex];
+  const progress = clientCount > 0 ? (activeIndex + 1) / clientCount : 0;
 
-  const isInView = useInView(sectionRef, { once: true, amount: 0.12 });
-
-  useEffect(() => {
-    preloadAround(0);
-    allClients.slice(0, 4).forEach((item) => preloadImage(item.content));
-  }, []);
-
-  useEffect(() => {
-    if (isInView && !hasEnteredRef.current) {
-      hasEnteredRef.current = true;
-      setEntered(true);
-    }
-  }, [isInView]);
+  const isInView = useInView(sectionRef, {
+    once: true,
+    amount: 0.08,
+    margin: "0px 0px -10% 0px",
+  });
 
   useEffect(() => {
-    preloadAround(activeIndex);
-  }, [activeIndex]);
+    if (!clientCount) return;
+    preloadAround(clients, 0);
+    clients.slice(0, 4).forEach((item) => preloadImage(item.content));
+  }, [clients, clientCount]);
 
-  const goToIndex = useCallback((normalizedIndex) => {
-    const target = resolveStripPosition(stripYRef.current, normalizedIndex);
-    if (target !== stripYRef.current) setStripY(target);
-  }, []);
+  useEffect(() => {
+    if (!clientCount) return;
+    preloadAround(clients, activeIndex);
+  }, [activeIndex, clients, clientCount]);
+
+  const goToIndex = useCallback(
+    (normalizedIndex) => {
+      const target = resolveStripPosition(
+        stripYRef.current,
+        normalizedIndex,
+        loopPoint,
+      );
+      if (target !== stripYRef.current) setStripY(target);
+    },
+    [loopPoint],
+  );
 
   const selectClient = useCallback(
     (index) => {
@@ -297,12 +268,12 @@ const ClientsShowcaseSection = () => {
   const advanceStrip = useCallback(() => {
     setStripY((prev) => {
       const next = prev + ITEM_HEIGHT;
-      return next >= LOOP_POINT ? LOOP_POINT : next;
+      return next >= loopPoint ? loopPoint : next;
     });
-  }, []);
+  }, [loopPoint]);
 
   const handleStripSettled = useCallback(() => {
-    if (stripYRef.current !== LOOP_POINT) return;
+    if (stripYRef.current !== loopPoint) return;
 
     setStripInstant(true);
     setStripY(0);
@@ -312,7 +283,7 @@ const ClientsShowcaseSection = () => {
       setStripInstant(false);
       resetFrameRef.current = null;
     });
-  }, []);
+  }, [loopPoint]);
 
   useEffect(
     () => () => {
@@ -323,12 +294,14 @@ const ClientsShowcaseSection = () => {
 
   useEffect(() => {
     clearInterval(timerRef.current);
-    if (!entered || isPaused || reduceMotion) return undefined;
+    if (!isInView || isPaused || reduceMotion || !clientCount) return undefined;
 
     timerRef.current = window.setInterval(advanceStrip, AUTO_MS);
 
     return () => clearInterval(timerRef.current);
-  }, [entered, isPaused, reduceMotion, advanceStrip]);
+  }, [isInView, isPaused, reduceMotion, advanceStrip, clientCount]);
+
+  if (!clientCount || !client) return null;
 
   return (
     <section
@@ -337,109 +310,152 @@ const ClientsShowcaseSection = () => {
       onMouseLeave={resumeAuto}
       aria-label="Client showcase"
     >
-      <header
-        className={`clients-showcase__header ${entered ? "is-visible" : ""}`}
-      >
-        <p
-          className="clients-showcase__eyebrow"
-          style={{ color: theme.backgroundColor }}
+      <div className="clients-showcase__inner">
+        <motion.header
+          className="clients-showcase__header"
+          {...revealProps(reduceMotion)}
         >
-          Our Clients
-        </p>
-        <p
-          className="clients-showcase__counter"
-          style={{ color: theme.backgroundColor }}
+          <p
+            className="clients-showcase__eyebrow"
+            style={{ color: theme.backgroundColor }}
+          >
+            Our Clients
+          </p>
+          <p
+            className="clients-showcase__lede"
+            style={{ color: theme.primaryColor }}
+          >
+            Identity, packaging, and rollout for brands we partner with from first
+            sketch to launch.
+          </p>
+        </motion.header>
+
+        <motion.div
+          className="clients-showcase__layout"
+          {...revealProps(reduceMotion)}
         >
-          <span className="clients-showcase__counter-slot">
-            <AnimatePresence mode="sync" initial={false}>
-              <motion.span
-                key={activeIndex}
-                className="clients-showcase__counter-current"
-                initial={reduceMotion ? false : { opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                transition={reduceMotion ? { duration: 0 } : FAST}
-              >
-                {String(activeIndex + 1).padStart(2, "0")}
-              </motion.span>
-            </AnimatePresence>
-          </span>
-          <span style={{ opacity: 0.35 }}>
-            {" "}
-            / {String(CLIENT_COUNT).padStart(2, "0")}
-          </span>
-        </p>
-      </header>
+          <VerticalThumbStrip
+            clients={clients}
+            clientCount={clientCount}
+            stripClients={stripClients}
+            stripY={stripY}
+            stripInstant={stripInstant}
+            stripActiveIndex={stripActiveIndex}
+            reduceMotion={reduceMotion}
+            onSelect={selectClient}
+            onStripSettled={handleStripSettled}
+            theme={theme}
+            progress={progress}
+          />
 
-      <div
-        className={`clients-showcase__layout ${entered ? "is-visible" : ""}`}
-      >
-        <VerticalThumbStrip
-          stripY={stripY}
-          stripInstant={stripInstant}
-          stripActiveIndex={stripActiveIndex}
-          reduceMotion={reduceMotion}
-          onSelect={selectClient}
-          onStripSettled={handleStripSettled}
-          theme={theme}
-          progress={progress}
-        />
+          <div className="clients-showcase__content">
+            <div className="clients-showcase__stage">
+              <HeroFrame
+                clients={clients}
+                activeIndex={activeIndex}
+                reduceMotion={reduceMotion}
+              />
+            </div>
 
-        <div className="clients-showcase__main">
-          <div className="clients-showcase__body">
-            <div className="clients-showcase__info">
-              <div className="clients-showcase__meta">
-                <AnimatePresence mode="sync" initial={false}>
-                  <motion.div
-                    key={client.id}
-                    className="clients-showcase__meta-panel"
-                    initial={reduceMotion ? false : { opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    exit={{ opacity: 0 }}
-                    transition={reduceMotion ? { duration: 0 } : FAST}
-                  >
-                    <h2
-                      className="clients-showcase__title"
-                      style={{ color: theme.backgroundColor }}
+            <aside className="clients-showcase__info">
+              <div className="clients-showcase__info-top">
+                <p
+                  className="clients-showcase__index"
+                  style={{ color: theme.backgroundColor }}
+                >
+                  <span className="clients-showcase__index-current">
+                    <AnimatePresence mode="sync" initial={false}>
+                      <motion.span
+                        key={activeIndex}
+                        className="clients-showcase__index-current-value"
+                        initial={reduceMotion ? false : { opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        transition={reduceMotion ? { duration: 0 } : FAST}
+                      >
+                        {String(activeIndex + 1).padStart(2, "0")}
+                      </motion.span>
+                    </AnimatePresence>
+                  </span>
+                  <span className="clients-showcase__index-total">
+                    / {String(clientCount).padStart(2, "0")}
+                  </span>
+                </p>
+
+                <div className="clients-showcase__meta">
+                  <AnimatePresence mode="sync" initial={false}>
+                    <motion.div
+                      key={client.id}
+                      className="clients-showcase__meta-panel"
+                      initial={reduceMotion ? false : { opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      exit={{ opacity: 0 }}
+                      transition={reduceMotion ? { duration: 0 } : FAST}
                     >
-                      {client.title}
-                    </h2>
-                    <p
-                      className="clients-showcase__tags"
-                      style={{ color: theme.backgroundColor }}
-                    >
-                      {client.description}
-                    </p>
-                  </motion.div>
-                </AnimatePresence>
+                      <h2
+                        className="clients-showcase__title"
+                        style={{ color: theme.backgroundColor }}
+                      >
+                        {client.title}
+                      </h2>
+                      <p
+                        className="clients-showcase__tags"
+                        style={{ color: theme.backgroundColor }}
+                      >
+                        {client.description}
+                      </p>
+                    </motion.div>
+                  </AnimatePresence>
+                </div>
               </div>
 
-              <div>
+              <div className="clients-showcase__info-bottom">
                 <p
                   className="clients-showcase__pitch"
-                  style={{ color: theme.backgroundColor }}
+                  style={{ color: theme.primaryColor }}
                 >
                   From brand identity to social campaigns and production, we
                   partner with founders and teams who want work that looks sharp
                   and performs.
                 </p>
-                <p
+                <a
                   className="clients-showcase__contact"
-                  style={{ color: theme.backgroundColor }}
+                  style={{ color: theme.primaryColor }}
+                  href="mailto:mellowyellowstudios09@gmail.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
                 >
-                  mellowyellow@gmail.com
-                </p>
-              </div>
-            </div>
+                  mellowyellowstudios09@gmail.com
+                </a>
 
-            <div className="clients-showcase__stage">
-              <HeroFrame
-                activeIndex={activeIndex}
-                reduceMotion={reduceMotion}
-              />
-            </div>
+                <div
+                  className="clients-showcase__progress"
+                  role="tablist"
+                  aria-label="Select client"
+                >
+                  {clients.map((item, index) => (
+                    <button
+                      key={item.id}
+                      type="button"
+                      role="tab"
+                      className={`clients-showcase__progress-dot ${
+                        index === activeIndex ? "is-active" : ""
+                      }`}
+                      style={
+                        index === activeIndex
+                          ? { backgroundColor: theme.backgroundColor }
+                          : undefined
+                      }
+                      aria-label={`View ${item.title}`}
+                      aria-selected={index === activeIndex}
+                      onClick={() => selectClient(index)}
+                    />
+                  ))}
+                </div>
+              </div>
+            </aside>
           </div>
-        </div>
+        </motion.div>
       </div>
     </section>
   );

@@ -57,7 +57,8 @@ const preloadImages = async (urls) => {
   );
 };
 
-const getItemHeight = (item, columnWidth) => {
+const getItemHeight = (item, columnWidth, fixedItemHeight) => {
+  if (fixedItemHeight) return fixedItemHeight;
   if (item.naturalWidth && item.naturalHeight) {
     return columnWidth * (item.naturalHeight / item.naturalWidth);
   }
@@ -75,6 +76,7 @@ const Masonry = ({
   blurToFocus = true,
   colorShiftOnHover = false,
   imageFit = 'cover',
+  fixedItemHeight,
   onItemClick,
   columnQueries = DEFAULT_COLUMN_QUERIES,
   columnValues = DEFAULT_COLUMN_VALUES,
@@ -128,14 +130,14 @@ const Masonry = ({
     return items.map((child) => {
       const col = colHeights.indexOf(Math.min(...colHeights));
       const x = columnWidth * col;
-      const height = getItemHeight(child, columnWidth);
+      const height = getItemHeight(child, columnWidth, fixedItemHeight);
       const y = colHeights[col];
 
       colHeights[col] += height;
 
       return { ...child, x, y, w: columnWidth, h: height };
     });
-  }, [columns, items, width]);
+  }, [columns, fixedItemHeight, items, width]);
 
   const containerHeight = useMemo(() => {
     if (!grid.length) return 0;

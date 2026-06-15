@@ -205,6 +205,17 @@
     background-color: color-mix(in srgb, var(--page-text) 4%, transparent);
     box-shadow: none;
   }
+
+  #logo-portfolio .item-img {
+    padding: 1rem;
+    box-sizing: border-box;
+    background-color: color-mix(in srgb, var(--page-text) 6%, transparent);
+  }
+
+  #logo-portfolio .item-img--contain .media-shell__media {
+    object-fit: contain;
+    object-position: center;
+  }
 }
 
 .category-project__masonry--loading {
@@ -247,6 +258,8 @@
   border-radius: 12px;
   border: 1px solid color-mix(in srgb, var(--page-text) 10%, transparent);
   background: color-mix(in srgb, var(--page-text) 3%, transparent);
+  content-visibility: auto;
+  contain-intrinsic-size: auto 420px;
   transition:
     border-color 0.25s ease,
     transform 0.25s ease;
@@ -282,6 +295,7 @@
   aspect-ratio: 9 / 16;
   object-fit: cover;
   display: block;
+  transform: translateZ(0);
 }
 
 .category-reel__meta h3 {

@@ -17,7 +17,7 @@ export const studioServices = [
     tagline: "Logos, systems, and rollouts",
     description:
       "Logos, visual language, packaging, and mockups built to feel cohesive on every touchpoint — from storefront to social feed.",
-    image: media("/content/branding/sekai/sekai-01.png"),
+    image: media("/content/branding/sekai/sekai-01.PNG"),
     deliverables: ["Logo systems", "Brand guidelines", "Packaging", "Mockups"],
   },
   {
@@ -39,17 +39,17 @@ export const studioServices = [
     tagline: "Grids, posters, and campaigns",
     description:
       "Scroll-stopping grids, posters, and campaign creatives designed to grow engagement and keep brands consistently on-brand.",
-    image: media("/content/marketing/kyza/kyza-01.jpg"),
+    image: media("/content/marketing/posters/juhi-01.png"),
     deliverables: ["Instagram grids", "Campaign visuals", "Posters", "Feed strategy"],
   },
   {
-    id: "events",
-    slug: "/events",
+    id: "pr",
+    slug: "/pr",
     index: "04",
-    title: "Event Launches",
-    tagline: "Coverage, reels, and activations",
+    title: "PR Activities",
+    tagline: "Coverage, activations, and reels",
     description:
-      "High-energy event coverage, influencer reels, and PR activations built for social amplification and brand recall.",
+      "Event coverage, influencer reels, and on-ground PR activations built for social amplification and brand recall.",
     image: media("/content/works/bcc/bcc-04.jpg"),
     deliverables: ["Launch coverage", "Influencer reels", "On-ground content", "Recap edits"],
   },

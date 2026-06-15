@@ -76,7 +76,16 @@ const MediaImage = forwardRef(function MediaImage(
     />
   );
 
+  const shellClassName = `media-shell ${wrapperClassName ?? ""}`.trim();
+
   if (!isRemoteMedia(src)) {
+    if (wrapperClassName || wrapperStyle) {
+      return (
+        <span className={shellClassName} style={wrapperStyle}>
+          {img}
+        </span>
+      );
+    }
     return img;
   }
 

@@ -1,10 +1,11 @@
 import { memo } from "react";
 import { useColor } from "../context/ColorContext";
 import { images, videos } from "../config/publicAssets";
-import ClientsShowcaseSection from "./ClientsShowcaseSection";
 import MediaImage from "../components/MediaImage";
 import MediaVideo from "../components/MediaVideo";
 import "../styles/ScreenSixScrollPower.scss";
+import ClientsShowcaseSection from "./ClientsShowcaseSection";
+import { newAllClients } from "../data/clients";
 const SocialDiningSection = () => {
   const { theme } = useColor();
 
@@ -85,8 +86,7 @@ const SocialDiningSection = () => {
           src={videos.small}
         />
       </section>
-
-      <ClientsShowcaseSection />
+      <ClientsShowcaseSection clients={newAllClients} />
     </div>
   );
 };

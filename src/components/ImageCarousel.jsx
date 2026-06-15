@@ -1,6 +1,7 @@
 import { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import MediaImage from "./MediaImage";
+import "./ImageCarousel.scss";
 
 const ImageCarousel = ({
   images,
@@ -9,11 +10,11 @@ const ImageCarousel = ({
   maxDelay = 4000,
 }) => {
   const currentIndexRef = useRef(0);
-  const imageRefs = useRef([]);
+  const slideRefs = useRef([]);
   const timeoutRef = useRef(null);
 
   useEffect(() => {
-    if (!images?.length) return;
+    if (!images?.length) return undefined;
 
     const availableDirections =
       direction === "vertical"
@@ -22,13 +23,28 @@ const ImageCarousel = ({
           ? ["left", "right"]
           : ["top", "bottom", "left", "right"];
 
+    slideRefs.current.forEach((slide, index) => {
+      if (!slide) return;
+      gsap.set(slide, {
+        opacity: index === 0 ? 1 : 0,
+        x: "0%",
+        y: "0%",
+      });
+    });
+    currentIndexRef.current = 0;
+
     const animateSlide = () => {
       const currentIndex = currentIndexRef.current;
       const nextIndex = (currentIndex + 1) % images.length;
-      currentIndexRef.current = nextIndex;
+      const currentSlide = slideRefs.current[currentIndex];
+      const nextSlide = slideRefs.current[nextIndex];
+
+      if (!currentSlide || !nextSlide) return;
 
       const selectedDirection =
-        availableDirections[Math.floor(Math.random() * availableDirections.length)];
+        availableDirections[
+          Math.floor(Math.random() * availableDirections.length)
+        ];
 
       let fromProps = {};
       const toProps = {
@@ -41,48 +57,75 @@ const ImageCarousel = ({
 
       if (selectedDirection === "top") {
         fromProps = { y: "-100%", opacity: 1 };
-        gsap.to(imageRefs.current[currentIndex], { y: "100%", opacity: 1, duration: 1, ease: "power2.inOut" });
+        gsap.to(currentSlide, {
+          y: "100%",
+          opacity: 1,
+          duration: 1,
+          ease: "power2.inOut",
+        });
       } else if (selectedDirection === "bottom") {
         fromProps = { y: "100%", opacity: 1 };
-        gsap.to(imageRefs.current[currentIndex], { y: "-100%", opacity: 1, duration: 1, ease: "power2.inOut" });
+        gsap.to(currentSlide, {
+          y: "-100%",
+          opacity: 1,
+          duration: 1,
+          ease: "power2.inOut",
+        });
       } else if (selectedDirection === "left") {
         fromProps = { x: "-100%", opacity: 1 };
-        gsap.to(imageRefs.current[currentIndex], { x: "100%", opacity: 1, duration: 1, ease: "power2.inOut" });
+        gsap.to(currentSlide, {
+          x: "100%",
+          opacity: 1,
+          duration: 1,
+          ease: "power2.inOut",
+        });
       } else {
         fromProps = { x: "100%", opacity: 1 };
-        gsap.to(imageRefs.current[currentIndex], { x: "-100%", opacity: 1, duration: 1, ease: "power2.inOut" });
+        gsap.to(currentSlide, {
+          x: "-100%",
+          opacity: 1,
+          duration: 1,
+          ease: "power2.inOut",
+        });
       }
 
-      gsap.fromTo(imageRefs.current[nextIndex], fromProps, toProps);
+      gsap.fromTo(nextSlide, fromProps, toProps);
+      currentIndexRef.current = nextIndex;
 
-      const randomDelay = Math.floor(Math.random() * (maxDelay - minDelay + 1)) + minDelay;
+      const randomDelay =
+        Math.floor(Math.random() * (maxDelay - minDelay + 1)) + minDelay;
       clearTimeout(timeoutRef.current);
       timeoutRef.current = setTimeout(animateSlide, randomDelay);
     };
 
-    animateSlide();
+    const initialDelay =
+      Math.floor(Math.random() * (maxDelay - minDelay + 1)) + minDelay;
+    timeoutRef.current = setTimeout(animateSlide, initialDelay);
+
     return () => clearTimeout(timeoutRef.current);
   }, [images, direction, minDelay, maxDelay]);
 
+  if (!images?.length) return null;
+
   return (
-    <div className="slider-section" style={{ width: "100%", height: "100%", position: "relative" }}>
-      <div className="slider-container" style={{ width: "100%", height: "100%", position: "relative", overflow: "hidden" }}>
+    <div className="image-carousel">
+      <div className="image-carousel__viewport">
         {images.map((img, index) => (
-          <MediaImage
-            key={index}
-            ref={(el) => (imageRefs.current[index] = el)}
-            src={img}
-            alt={`Slide ${index + 1}`}
-            className="slide-image"
-            wrapperClassName="media-shell--fill"
-            fadeIn={false}
-            style={{
-              width: "100%",
-              height: "100%",
-              objectFit: "cover",
-              opacity: 0,
+          <div
+            key={`${img}-${index}`}
+            ref={(el) => {
+              slideRefs.current[index] = el;
             }}
-          />
+            className="image-carousel__slide"
+          >
+            <MediaImage
+              src={img}
+              alt={`Slide ${index + 1}`}
+              className="image-carousel__media"
+              wrapperClassName="media-shell--fill"
+              fadeIn={false}
+            />
+          </div>
         ))}
       </div>
     </div>

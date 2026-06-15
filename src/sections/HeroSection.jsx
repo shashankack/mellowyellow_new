@@ -192,7 +192,7 @@ const HeroSection = () => {
                 playsInline
                 wrapperClassName="media-shell--fill"
                 className="video-bg-screen"
-                src={videos.main}
+                src={videos.landingMain}
               />
             </div>
           </div>

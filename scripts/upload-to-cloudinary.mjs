@@ -11,10 +11,11 @@ dotenv.config({ path: path.join(projectRoot, ".env") });
 const publicRoot = path.join(projectRoot, "public");
 
 const FOLDER_PREFIX = process.env.CLOUDINARY_FOLDER ?? "mellowyellow";
+/** Roots walked recursively — any new subfolder under these is included automatically. */
 const UPLOAD_DIRS = [
-  path.join(publicRoot, "assets", "images"),
-  path.join(publicRoot, "assets", "videos"),
+  path.join(publicRoot, "assets"),
   path.join(publicRoot, "content"),
+  path.join(publicRoot, "clients"),
 ];
 
 const MEDIA_EXTENSIONS = new Set([
@@ -29,7 +30,14 @@ const MEDIA_EXTENSIONS = new Set([
   ".webm",
   ".mov",
   ".m4v",
+  ".ttf",
+  ".otf",
+  ".woff",
+  ".woff2",
 ]);
+
+const VIDEO_EXTENSIONS = new Set([".mp4", ".webm", ".mov", ".m4v"]);
+const RAW_EXTENSIONS = new Set([".ttf", ".otf", ".woff", ".woff2"]);
 
 const requiredEnv = [
   "CLOUDINARY_CLOUD_NAME",
@@ -131,7 +139,9 @@ async function ensureFoldersForFiles(files) {
 
 function toResourceType(filePath) {
   const ext = path.extname(filePath).toLowerCase();
-  return [".mp4", ".webm", ".mov", ".m4v"].includes(ext) ? "video" : "image";
+  if (RAW_EXTENSIONS.has(ext)) return "raw";
+  if (VIDEO_EXTENSIONS.has(ext)) return "video";
+  return "image";
 }
 
 async function resourceExists(publicId, resourceType) {
@@ -206,7 +216,9 @@ async function main() {
   ).flat();
 
   if (files.length === 0) {
-    console.error("No media files found under public/assets or public/content.");
+    console.error(
+      "No media files found under public/assets, public/content, or public/clients.",
+    );
     process.exit(1);
   }
 
@@ -238,7 +250,8 @@ async function main() {
   const manifestPath = path.join(projectRoot, "cloudinary-manifest.json");
   await writeFile(manifestPath, JSON.stringify(manifest, null, 2));
 
-  const totalMb = manifest.reduce((sum, item) => sum + item.bytes, 0) / (1024 * 1024);
+  const totalMb =
+    manifest.reduce((sum, item) => sum + (item.bytes ?? 0), 0) / (1024 * 1024);
   console.log(`\nDone. ${manifest.length} files uploaded (${totalMb.toFixed(1)} MB).`);
   if (failures.length > 0) {
     console.error(`\n${failures.length} file(s) failed:`);

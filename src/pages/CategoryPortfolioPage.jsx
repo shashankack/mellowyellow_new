@@ -2,7 +2,7 @@ import { useCallback, useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import Masonry from "../components/Masonry";
-import MediaVideo from "../components/MediaVideo";
+import MediaVideo, { pauseActiveHoverVideo } from "../components/MediaVideo";
 import MediaPreviewModal from "../components/MediaPreviewModal";
 import { useColor } from "../context/ColorContext";
 import { getPortfolioCategory, portfolioCategories } from "../data/portfolio";
@@ -35,6 +35,12 @@ const COMPACT_COLUMNS = {
   columnDefault: 1,
 };
 
+const BRANDING_COLUMNS = {
+  columnQueries: ["(min-width:900px)", "(min-width:600px)"],
+  columnValues: [4, 2],
+  columnDefault: 1,
+};
+
 const measureImage = (src) =>
   new Promise((resolve) => {
     const img = new Image();
@@ -47,10 +53,12 @@ const measureImage = (src) =>
     img.src = src;
   });
 
-const ProjectMasonry = ({ project, isCompact, onPreview }) => {
+const ProjectMasonry = ({ project, columnConfig, onPreview }) => {
   const [items, setItems] = useState([]);
 
-  const columnConfig = isCompact ? COMPACT_COLUMNS : STANDARD_COLUMNS;
+  const columnSettings = columnConfig ?? STANDARD_COLUMNS;
+  const imageFit = project.imageFit ?? "contain";
+  const fixedItemHeight = project.fixedItemHeight;
 
   useEffect(() => {
     let cancelled = false;
@@ -94,7 +102,8 @@ const ProjectMasonry = ({ project, isCompact, onPreview }) => {
         hoverScale={0.98}
         blurToFocus
         colorShiftOnHover={false}
-        imageFit="contain"
+        imageFit={imageFit}
+        fixedItemHeight={fixedItemHeight}
         onItemClick={(item) =>
           onPreview?.({
             type: "image",
@@ -102,7 +111,7 @@ const ProjectMasonry = ({ project, isCompact, onPreview }) => {
             title: project.client,
           })
         }
-        {...columnConfig}
+        {...columnSettings}
       />
     </div>
   );
@@ -113,7 +122,10 @@ const CategoryPortfolioPage = ({ categoryId }) => {
   const category = getPortfolioCategory(categoryId);
   const [preview, setPreview] = useState(null);
 
-  const openPreview = useCallback((item) => setPreview(item), []);
+  const openPreview = useCallback((item) => {
+    pauseActiveHoverVideo();
+    setPreview(item);
+  }, []);
   const closePreview = useCallback(() => setPreview(null), []);
 
   if (!category) return null;
@@ -172,7 +184,12 @@ const CategoryPortfolioPage = ({ categoryId }) => {
         {category.projects.length > 0 && (
           <div className="category-projects">
             {category.projects.map((project, index) => {
-              const isCompact = project.images.length > 6;
+              const columnConfig =
+                categoryId === "branding" ? BRANDING_COLUMNS : undefined;
+              const isCompact =
+                categoryId !== "branding" && project.images.length > 6;
+              const projectColumns =
+                columnConfig ?? (isCompact ? COMPACT_COLUMNS : STANDARD_COLUMNS);
 
               return (
                 <motion.section
@@ -207,7 +224,7 @@ const CategoryPortfolioPage = ({ categoryId }) => {
 
                   <ProjectMasonry
                     project={project}
-                    isCompact={isCompact}
+                    columnConfig={projectColumns}
                     onPreview={openPreview}
                   />
                 </motion.section>

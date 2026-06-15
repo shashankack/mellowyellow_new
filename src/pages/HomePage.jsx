@@ -3,9 +3,10 @@ import HeroSection from "../sections/HeroSection";
 import HeroShowreel from "../sections/HeroShowreel";
 import QuoteRevealSection from "../sections/QuoteRevealSection";
 import ServicesPreviewSection from "../sections/ServicesPreviewSection";
-import VisionSection from "../sections/VisionSection";
 import PortfolioLinksSection from "../sections/PortfolioLinksSection";
 import SocialDiningSection from "../sections/SocialDiningSection";
+import NewVisionSection from "../sections/NewVisionSection.jsx";
+
 
 const HomePage = () => (
   <div className="layout-main">
@@ -13,7 +14,7 @@ const HomePage = () => (
     <HeroShowreel />
     <QuoteRevealSection quote="DESIGN WITHOUT MEANING IS JUST ANOTHER IMAGE WITH NOISE!" />
     <ServicesPreviewSection />
-    <VisionSection />
+    <NewVisionSection />
     <PortfolioLinksSection />
     <SocialDiningSection />
   </div>
