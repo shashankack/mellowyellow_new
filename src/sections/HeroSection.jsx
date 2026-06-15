@@ -4,7 +4,7 @@ import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 
 import { useColor } from "../context/ColorContext";
 
-import { videos } from "../config/publicAssets";
+import { images, videos } from "../config/publicAssets";
 
 import ThemeSwitcher from "../components/ThemeSwitcher";
 
@@ -136,7 +136,7 @@ const HeroSection = () => {
       <div className="hero__top-bar">
         <div className="hero__brand">
           <img
-            src="/assets/images/logo_black.PNG"
+            src={images.logoBlack}
             alt="Mellow Yellow"
             className="hero__logo"
             width={220}

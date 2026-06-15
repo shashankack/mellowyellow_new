@@ -1,6 +1,7 @@
 import { asset } from "./cloudinary";
 
 export const images = {
+  logoBlack: asset("images/logo_black.PNG"),
   ui: {
     candle: asset("images/gallery/candle.jpg"),
     craft: asset("images/gallery/craft.png"),
