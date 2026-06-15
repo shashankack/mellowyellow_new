@@ -180,9 +180,9 @@ const ServicesPage = () => {
         <Link to="/" className="services-page__back">
           ← Back to home
         </Link>
-        <Link to="/clients" className="services-page__back">
+        {/* <Link to="/clients" className="services-page__back">
           View clients →
-        </Link>
+        </Link> */}
       </footer>
     </div>
   );

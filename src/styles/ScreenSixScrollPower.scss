@@ -36,12 +36,6 @@
     }
   }
 
-  @media (max-width: 768px) {
-    .clients-showcase__rail-wrap {
-      height: min(400px, 50vh);
-    }
-  }
-
   .clients-showcase__inner {
     height: 100%;
     min-height: 0;
@@ -52,18 +46,14 @@
     min-height: 0;
   }
 
-  .clients-showcase__content {
-    min-height: 0;
-    height: 100%;
-    align-items: center;
-  }
-
   .clients-showcase__stage {
     overflow: visible;
-    flex-shrink: 0;
+    min-height: 0;
+    height: 100%;
   }
 
   .clients-showcase__hero {
+    min-height: min(46vh, 440px);
     max-height: min(52vh, 500px);
   }
 
@@ -71,10 +61,8 @@
     max-height: min(52vh, 500px);
   }
 
-  .clients-showcase__rail-wrap {
-    position: relative;
-    top: auto;
-    height: min(520px, 68vh);
+  .clients-showcase__list {
+    max-height: 100%;
   }
 }
 
@@ -142,101 +130,6 @@
       width: 90%;
       margin-bottom: 0;
     }
-  }
-}
-
-.new {
-  position: sticky;
-  top: 0;
-  z-index: 2;
-  height: 100vh;
-  height: 100dvh;
-  min-height: 100vh;
-  min-height: 100dvh;
-  background-color: #ffffff;
-  color: #000;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  overflow: hidden;
-  background-size: cover;
-
-  .craft-image {
-    width: 90rem;
-    max-width: 100%;
-
-    @media (max-width: 768px) {
-      width: 100%;
-    }
-
-    .media-shell__media {
-      width: 100%;
-      height: auto;
-      display: block;
-    }
-  }
-
-  .cube-vid {
-    position: absolute;
-    bottom: 5%;
-    right: 2%;
-    z-index: 2;
-    width: 7%;
-    height: 20%;
-    max-width: none;
-    border-radius: 10px;
-    overflow: hidden;
-
-    .media-shell__media {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-    }
-
-    @media (max-width: 768px) {
-      width: 80px;
-      height: 110px;
-      bottom: 1%;
-      border-radius: 5px;
-    }
-  }
-
-  img,
-  .media-shell:not(.cube-vid):not(.craft-image) {
-    width: 90rem;
-
-    @media (max-width: 768px) {
-      width: 100%;
-    }
-
-    @media (max-width: 500px) {
-      width: 100vw;
-      scale: 2;
-    }
-  }
-
-  .media-shell:not(.cube-vid):not(.craft-image) img,
-  .media-shell:not(.cube-vid):not(.craft-image) .media-shell__media {
-    width: 100%;
-    height: auto;
-    display: block;
-  }
-
-  h1 {
-    font-size: 7rem;
-    font-weight: 900;
-    text-align: center;
-
-    @media (max-width: 768px) {
-      font-size: 4rem;
-    }
-  }
-
-  p {
-    font-family: re;
   }
 }
 

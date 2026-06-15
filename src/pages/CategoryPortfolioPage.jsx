@@ -282,9 +282,9 @@ const CategoryPortfolioPage = ({ categoryId }) => {
         <Link to="/#portfolio" className="category-page__back">
           ← Back to all categories
         </Link>
-        <Link to="/clients" className="category-page__back">
+        {/* <Link to="/clients" className="category-page__back">
           View clients →
-        </Link>
+        </Link> */}
       </footer>
 
       <MediaPreviewModal preview={preview} onClose={closePreview} />

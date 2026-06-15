@@ -65,6 +65,9 @@ const brandingProjects = [
       "/content/branding/mockups/brand-04.jpg",
       "/content/branding/yawn/yawn-05.jpg",
       "/content/branding/yawn/yawn-06.jpg",
+      "/content/branding/application/app-01.jpeg",
+      "/content/branding/application/app-02.jpeg",
+      "/content/branding/application/app-03.jpeg",
     ],
   },
   {
@@ -92,6 +95,11 @@ const marketingProjects = [
       "/content/marketing/grids/grid-05.png",
       "/content/marketing/grids/grid-06.jpeg",
       "/content/marketing/grids/grid-07.jpeg",
+      "/content/marketing/grids/grid-08.jpeg",
+      "/content/marketing/grids/grid-09.jpeg",
+      "/content/marketing/grids/grid-10.jpeg",
+      "/content/marketing/grids/grid-11.jpeg",
+      "/content/marketing/grids/grid-12.jpeg",
     ],
   },
   {
@@ -107,20 +115,6 @@ const marketingProjects = [
       "/content/marketing/posters/sekai-01.png",
       "/content/marketing/posters/sekai-02.jpeg",
       "/content/marketing/posters/matcha-01.png",
-      "/content/marketing/posters/poster-01.jpeg",
-      "/content/marketing/posters/poster-02.jpeg",
-      "/content/marketing/posters/poster-03.jpeg",
-    ],
-  },
-  {
-    id: "smm-management",
-    client: "Social Media Management",
-    services: "Content Planning · Community Growth",
-    description:
-      "Always-on content pipelines and platform-native posts that keep brands active, relevant, and visually sharp.",
-    images: [
-      "/content/marketing/smm/smm-01.jpeg",
-      "/content/marketing/smm/smm-04.jpeg",
     ],
   },
 ];

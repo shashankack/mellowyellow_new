@@ -4,6 +4,7 @@ import { images, videos } from "../config/publicAssets";
 import MediaImage from "../components/MediaImage";
 import MediaVideo from "../components/MediaVideo";
 import "../styles/ScreenSixScrollPower.scss";
+import "../styles/timelessCraft.scss";
 import ClientsShowcaseSection from "./ClientsShowcaseSection";
 import { newAllClients } from "../data/clients";
 const SocialDiningSection = () => {
@@ -69,22 +70,25 @@ const SocialDiningSection = () => {
       </section>
 
       <section
-        className="new"
-        style={{ backgroundColor: theme.backgroundColor }}
+        className="timeless-craft"
+        style={{ "--tc-bg": theme.backgroundColor }}
       >
-        <MediaImage
-          src={images.ui.craft}
-          alt="Craft"
-          wrapperClassName="craft-image"
-        />
-        <MediaVideo
-          autoPlay
-          loop
-          muted
-          playsInline
-          wrapperClassName="cube-vid"
-          src={videos.small}
-        />
+        <div className="timeless-craft__inner">
+          <h1 className="timeless-craft__title">
+            Ti<span>meless</span>
+          </h1>
+
+          <MediaVideo
+            autoPlay
+            loop
+            muted
+            playsInline
+            wrapperClassName="timeless-craft__video media-shell--fill"
+            src={videos.small}
+          />
+
+          <h2 className="timeless-craft__subtitle">Craft</h2>
+        </div>
       </section>
       <ClientsShowcaseSection clients={newAllClients} />
     </div>
