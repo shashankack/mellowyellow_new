@@ -55,6 +55,20 @@
   .clients-showcase__content {
     min-height: 0;
     height: 100%;
+    align-items: center;
+  }
+
+  .clients-showcase__stage {
+    overflow: visible;
+    flex-shrink: 0;
+  }
+
+  .clients-showcase__hero {
+    max-height: min(52vh, 500px);
+  }
+
+  .clients-showcase__hero-img {
+    max-height: min(52vh, 500px);
   }
 
   .clients-showcase__rail-wrap {

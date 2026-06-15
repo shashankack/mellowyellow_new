@@ -55,12 +55,12 @@ const NewVisionSection = () => {
     vision: {
       title: "VISION",
       description:
-        "To become a leading creative agency that transforms businesses into brands people love.",
+        "To become a leading creative agency that transforms businesses into brands people trust.",
     },
     mission: {
       title: "MISSION",
       description:
-        "To help brands reach the right audience, prioritizing meaningful engagement and conversions over vanity metrics and reach alone.",
+        "To help businesses market to the right audience through strategic creativity and innovative marketing solutions that drive growth and create meaningful impact.",
     },
   };
 

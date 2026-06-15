@@ -280,7 +280,7 @@ export const newAllClients = resolveMediaDeep([
     thumbnail: "/content/branding/logos/logo-07.png",
     title: "DESI DHARTI",
     description: "BRANDING & IDENTITY · PACKAGING",
-    content: "/clients/desi-dharti/content.jpeg",
+    content: "/clients/desi-dharti/content.PNG",
   }),
 ]);
 

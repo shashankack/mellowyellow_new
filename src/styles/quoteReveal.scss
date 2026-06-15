@@ -1,0 +1,123 @@
+@font-face {
+  font-family: "cool";
+  src: url("/assets/fonts/coolmain.otf") format("opentype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+.quote-reveal {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  margin-top: 12rem;
+  font-family: "Cool";
+
+  &__intro {
+    width: 100%;
+    will-change: transform, opacity;
+  }
+
+  &__title {
+    letter-spacing: -0.08em;
+    font-size: clamp(2.5rem, 5.5vw, 5.5rem);
+    font-weight: 400;
+    padding: 0 1rem;
+    margin: 0;
+    line-height: 1;
+  }
+
+  &__inline-video {
+    display: inline-block;
+    vertical-align: middle;
+    width: auto;
+    height: 1.05em;
+    margin: 0 0.2em 0 0.35em;
+    line-height: 0;
+
+    .media-shell__media {
+      width: auto;
+      height: 100%;
+      display: block;
+    }
+  }
+
+  &__body {
+    display: flex;
+    align-items: flex-start;
+    gap: clamp(1.5rem, 3vw, 2.5rem);
+    width: 100%;
+    margin-top: clamp(2.5rem, 5vw, 4rem);
+    padding: 0 1rem;
+    box-sizing: border-box;
+  }
+
+  &__media,
+  &__copy {
+    width: 50%;
+    flex: 0 0 50%;
+    min-width: 0;
+    box-sizing: border-box;
+  }
+
+  &__media {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+  }
+
+  &__tv {
+    width: 100%;
+    max-width: 100%;
+
+    .media-shell__media {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+  }
+
+  &__copy {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+
+    p {
+      margin: 0;
+      font-size: clamp(1.25rem, 2.2vw, 1.8rem);
+      line-height: 1.45;
+      padding-right: 2rem;
+      max-width: 700px;
+    }
+  }
+
+  @media (max-width: 900px) {
+    &__body {
+      flex-direction: column;
+      gap: 2rem;
+    }
+
+    &__media,
+    &__copy {
+      width: 100%;
+      flex: 0 0 auto;
+    }
+  }
+
+  @media (max-width: 500px) {
+    margin-top: 1rem;
+
+    &__title {
+      font-size: 2rem;
+    }
+
+    &__inline-video {
+      display: none;
+    }
+
+    &__copy p {
+      font-size: 1.2rem;
+      line-height: 1.5rem;
+      text-align: justify;
+    }
+  }
+}

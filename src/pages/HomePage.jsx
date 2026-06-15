@@ -13,9 +13,9 @@ const HomePage = () => (
     <HeroSection />
     <HeroShowreel />
     <QuoteRevealSection quote="DESIGN WITHOUT MEANING IS JUST ANOTHER IMAGE WITH NOISE!" />
-    <ServicesPreviewSection />
     <NewVisionSection />
     <PortfolioLinksSection />
+    <ServicesPreviewSection />
     <SocialDiningSection />
   </div>
 );

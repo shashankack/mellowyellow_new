@@ -5,8 +5,6 @@ const legacyBrandingImages = [
     { length: 13 },
     (_, index) => `/content/branding/legacy/br${index + 1}.png`,
   ),
-  "/content/branding/legacy/br14.jpg",
-  "/content/branding/legacy/br15.jpg",
 ];
 
 const brandingProjects = [
@@ -93,6 +91,7 @@ const marketingProjects = [
       "/content/marketing/grids/grid-04.jpg",
       "/content/marketing/grids/grid-05.png",
       "/content/marketing/grids/grid-06.jpeg",
+      "/content/marketing/grids/grid-07.jpeg",
     ],
   },
   {
@@ -108,6 +107,9 @@ const marketingProjects = [
       "/content/marketing/posters/sekai-01.png",
       "/content/marketing/posters/sekai-02.jpeg",
       "/content/marketing/posters/matcha-01.png",
+      "/content/marketing/posters/poster-01.jpeg",
+      "/content/marketing/posters/poster-02.jpeg",
+      "/content/marketing/posters/poster-03.jpeg",
     ],
   },
   {
